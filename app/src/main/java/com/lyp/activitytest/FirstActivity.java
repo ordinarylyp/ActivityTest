@@ -3,6 +3,7 @@ package com.lyp.activitytest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,7 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_layout);
-        Button button1=(Button) findViewById(R.id.button_1);
+        Button button1= findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,12 +24,26 @@ public class FirstActivity extends AppCompatActivity {
 //                finish();//结束当前活动
 /*                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
                 startActivity(intent);显示Intent 启动SecondActivity*/
-               Intent intent=new Intent("com.lyp.activitytest.ACTION_START");
-               intent.addCategory("com.lyp.activitytest.MY_CATEGORY");
-                startActivity(intent);  /*隐式intent SecondActivity */
-
+  /*              Intent intent=new Intent("com.lyp.activitytest.ACTION_START");
+                intent.addCategory("com.lyp.activitytest.MY_CATEGORY");
+                startActivity(intent);  隐式intent SecondActivity */
+                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
+                startActivityForResult(intent,1);//返回数据给上个活动
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("FirstActivity",returnedData);
+                }
+                break;
+            default:
+        }
     }
 
     @Override
