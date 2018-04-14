@@ -1,0 +1,150 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision )
++++ .idea/modules.xml	(revision )
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/Android.iml" filepath="$PROJECT_DIR$/Android.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision )
++++ .idea/vcs.xml	(revision )
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision )
++++ .idea/gradle.xml	(revision )
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="distributionType" value="DEFAULT_WRAPPED" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$/" />
++        <option name="resolveModulePerSourceSet" value="false" />
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ActivityTest/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ActivityTest/.idea/vcs.xml	(revision )
++++ ActivityTest/.idea/vcs.xml	(revision )
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ActivityTest/app/src/main/java/com/lyp/activitytest/FirstActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ActivityTest/app/src/main/java/com/lyp/activitytest/FirstActivity.java	(revision 70d5a35d8f1cf7d1f7e4e86c9522f5d22ab5be8a)
++++ ActivityTest/app/src/main/java/com/lyp/activitytest/FirstActivity.java	(revision )
+@@ -3,6 +3,7 @@
+ import android.content.Intent;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
++import android.util.Log;
+ import android.view.Menu;
+ import android.view.MenuItem;
+ import android.view.View;
+@@ -23,13 +24,27 @@
+ //                finish();//结束当前活动
+ /*                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
+                 startActivity(intent);显示Intent 启动SecondActivity*/
+-               Intent intent=new Intent("com.lyp.activitytest.ACTION_START");
+-               intent.addCategory("com.lyp.activitytest.MY_CATEGORY");
+-                startActivity(intent);  /*隐式intent SecondActivity */
+-
++  /*              Intent intent=new Intent("com.lyp.activitytest.ACTION_START");
++                intent.addCategory("com.lyp.activitytest.MY_CATEGORY");
++                startActivity(intent);  隐式intent SecondActivity */
++                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
++                startActivityForResult(intent,1);//返回数据给上个活动
+             }
+         });
+     }
++
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
++        switch (requestCode){
++            case 1:
++                if(resultCode == RESULT_OK){
++                    String returnedData = data.getStringExtra("data_return");
++                    Log.d("FirstActivity",returnedData);
++                }
++                break;
++            default:
++        }
++    }
+ 
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+Index: ActivityTest/app/src/main/java/com/lyp/activitytest/SecondActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ActivityTest/app/src/main/java/com/lyp/activitytest/SecondActivity.java	(revision 70d5a35d8f1cf7d1f7e4e86c9522f5d22ab5be8a)
++++ ActivityTest/app/src/main/java/com/lyp/activitytest/SecondActivity.java	(revision )
+@@ -1,7 +1,10 @@
+ package com.lyp.activitytest;
+ 
++import android.content.Intent;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
+ 
+ public class SecondActivity extends AppCompatActivity {
+ 
+@@ -9,5 +12,15 @@
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.second_layout);
++        Button button2=(Button) findViewById(R.id.button_2);
++        button2.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                Intent intent =new Intent();
++                intent.putExtra("data_return","Hello FirstActivity");
++                setResult(RESULT_OK,intent);
++                finish();
++            }
++        });
+     }
+ }

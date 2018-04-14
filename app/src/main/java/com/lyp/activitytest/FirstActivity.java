@@ -15,6 +15,7 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("FirstActivity",this.toString());
         setContentView(R.layout.first_layout);
         Button button1= findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -27,8 +28,10 @@ public class FirstActivity extends AppCompatActivity {
   /*              Intent intent=new Intent("com.lyp.activitytest.ACTION_START");
                 intent.addCategory("com.lyp.activitytest.MY_CATEGORY");
                 startActivity(intent);  隐式intent SecondActivity */
+/*                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
+                startActivityForResult(intent,1);//返回数据给上个活动  */
                 Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
-                startActivityForResult(intent,1);//返回数据给上个活动
+                startActivity(intent);
             }
         });
     }
@@ -64,6 +67,12 @@ public class FirstActivity extends AppCompatActivity {
             default:
         }
         return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("FirstActivity","onRestart");
     }
 }
 
