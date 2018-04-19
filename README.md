@@ -1,7 +1,7 @@
 ActivityTest
 ===================================
 对于Android 活动的学习
-## 关于intent
+### 关于intent
     intent的用法很多
     这里只讲intent启动活动（第一行代码第二章的内容）
     显示intent
@@ -18,4 +18,4 @@ ActivityTest
     也可以通过隐式intent在活动之间传递信息
     putExtra方法来发送信息，getExtra方法来接受信息 
     如果在启动活动的时候希望获取信息可以通过 startActivityForResult方法启动
-## 活动的周期
+### 活动的周期
