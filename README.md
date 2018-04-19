@@ -18,4 +18,4 @@ ActivityTest
 		putExtra方法来发送信息，getExtra方法来接受信息 
 		如果在启动活动的时候希望获取信息可以通过 startActivityForResult方法启动
 ### 活动的周期
-![github-01.jpg](/images/ac.jpg "github-01.jpg")
+![github-01.jpg](/img/ac.jpg "github-01.jpg")
