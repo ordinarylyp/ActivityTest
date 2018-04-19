@@ -10,12 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("FirstActivity",this.toString());
+        Log.d("FirstActivity","Task id is "+getTaskId());
         setContentView(R.layout.first_layout);
         Button button1= findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -30,8 +30,7 @@ public class FirstActivity extends AppCompatActivity {
                 startActivity(intent);  隐式intent SecondActivity */
 /*                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
                 startActivityForResult(intent,1);//返回数据给上个活动  */
-                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
-                startActivity(intent);
+                SecondActivity.actionStart(FirstActivity.this,"data1","data2");
             }
         });
     }
@@ -73,6 +72,12 @@ public class FirstActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d("FirstActivity","onRestart");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("FirstActivity","onDestroy");
     }
 }
 
