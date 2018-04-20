@@ -24,5 +24,6 @@ public class ActivityCollector {   //活动管理器
             }
         }
         activities.clear();  //结束所有活动
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
