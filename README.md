@@ -28,3 +28,11 @@ ActivityTest
 	解决了重复创建栈顶活动的问题
 	4.singleInstance模式
 	启动一个新的返回栈来管理这个活动，在允许其他程序访问时，可以共用这个返回栈，达到共享活动实例的效果
+### 关于活动的其他
+	1.知晓当前程序界面是哪个活动（方便活动管理和阅读代码）
+	（1）创建一个BaseActivity类，继承自AppCompatActivity，重写onCreate方法，在方法中通过 Log.d("BaseActivity",getClass().getSimpleName());		来获取当前活动的信息。（2）让程序中的其他活动继承BaseActivity类即可在程序界面知道当前活动
+	2.管理活动（方便随时随地退出程序）
+	写一个ActivityCollector类,下面添加addActivity，removeActivity和finishAll方法；在onCreate方法中使用addActivity方法；在onDestroy方法
+	中使用removeActivity方法；在最终要结束程序的活动中使用finishAll方法。
+	3.启动活动的简写
+	可以在需要启动的活动中添加一个actionStart方法，可以清晰的看到活动所需要的数据，也简化了启动活动所需的代码
